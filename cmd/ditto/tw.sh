@@ -61,7 +61,7 @@ DecLoad(){
 		[ -z "${response}" ]&& main;connectivity;echo "\033[01;33m[-]\033[0m Downloading...\033[0m"
 		python3 ${logdir}/transferwee.py download "https://we.tl/t-${id}"; 
 		__EXT__=$(ls *samhax); mv "${__EXT__}" "${logdir}/${__EXT__}";
-		__DIR__=$(echo ${__EXT__} | sed 's/.\{4\}$//');
+		__DIR__=$(echo ${__EXT__} | sed 's/.\{7\}$//');
 		cat ${logdir}/${__EXT__} | base64 -d > ${logdir}/${__DIR__}.enc
 		openssl aes-256-cbc -d -a -in "${logdir}/${__DIR__}.enc" -out "${PWD}/${__DIR__}.zip" -md sha256
 		echo "\033[01;33m[-]\033[0m Extracting Archive ${__DIR__}"
@@ -102,7 +102,7 @@ main(){
 	transferwee="https://raw.githubusercontent.com/recoxv1/transferwee/master/transferwee.py"
 	[ ! -f "/tmp/transferwee.py" ]&& curl -s ${transferwee} > /tmp/transferwee.py
 	cp /tmp/transferwee.py ${logdir}/transferwee.py;
-	echo "\n[1] Upload \n[2] Download\n[3] Upload-List\n[4]Download-List\n[0] Exit\n"
+	echo "\n[1] Upload \n[2] Download\n[3] Upload-List\n[4] Download-List\n[0] Exit\n"
 	read -r -p "=> " choice;choice=$(echo ${choice} | grep -x -E \
 	'[[:digit:]]+');[ -z ${choice} ]&& main;
 	if [ "${choice}" -eq 1 ]
